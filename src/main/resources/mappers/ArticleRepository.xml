@@ -7,10 +7,11 @@
 
 	<insert id="writeArticle" parameterType="map">
 		INSERT INTO article
-		SET regDate = NOW(),
+		SET
+		regDate = NOW(),
 		updateDate = NOW(),
 		title = #{title},
-		body = #{body}
+		`body` = #{body}
 	</insert>
 
 	<delete id="deleteArticle" parameterType="int">
@@ -20,9 +21,11 @@
 
 	<update id="modifyArticle" parameterType="map">
 		UPDATE article
-		SET updateDate = NOW(),
-		title = #{title},
-		body = #{body}
+		<set>
+			updateDate = NOW(),
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="body != null and body != ''">`body` = #{body}</if>
+		</set>
 		WHERE id = #{id}
 	</update>
 
