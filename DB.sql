@@ -20,10 +20,11 @@ CREATE TABLE `member` (
 	loginPw CHAR(50) NOT NULL,
 	`name` CHAR(20) NOT NULL,
 	nickName CHAR(20) NOT NULL,
-	email CHAR(20) NOT NULL
+	email CHAR(20) NOT NULL,
+	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (0=탈퇴 전, 1=탈퇴 후)',
+	delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
-# 게시글 테스트 데이터
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
