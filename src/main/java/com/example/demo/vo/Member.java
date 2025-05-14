@@ -18,6 +18,8 @@ public class Member {
 	private String name;
 	private String nickName;
 	private String email;
+	private Integer delStatus;
+	private LocalDateTime delDate;
 
 	public Member(String loginId, String loginPw, String name, String nickName, String email) {
 		this.loginId = loginId;
