@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MemberService;
+import com.example.demo.util.Ut;
 import com.example.demo.vo.Member;
 
 @Controller
@@ -16,6 +17,27 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickName, String email) {
+		// 입력하는 값이 비어 있을때 예외처리
+		if (Ut.isEmptyOrNull(loginId)) {
+			return "아이디를 입력해주세요.";
+		}
+		
+		if (Ut.isEmptyOrNull(loginPw)) {
+			return "비밀번호를 입력해주세요.";
+		}
+		
+		if (Ut.isEmptyOrNull(name)) {
+			return "이름을 입력해주세요.";
+		}
+		
+		if (Ut.isEmptyOrNull(nickName)) {
+			return "닉네임을 입력해주세요.";
+		}
+		
+		if (Ut.isEmptyOrNull(email)) {
+			return "이메일을 입력해주세요.";
+		}
+		
 		int id = memberService.doJoin(loginId, loginPw, name, nickName, email);
 		
 		if (id == -1) {
