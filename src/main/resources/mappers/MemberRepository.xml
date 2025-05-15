@@ -3,8 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.example.demo.repository.MemberRepository">
+<mapper namespace="com.example.demo.repository.MemberRepository">
 
 	<insert id="doJoin" parameterType="map">
 		INSERT INTO `member`
@@ -12,10 +11,27 @@
 		regDate = NOW(),
 		updateDate = NOW(),
 		loginId = #{loginId},
-		loginPw = #{loginPw},
+		loginPw =
+		#{loginPw},
 		`name` = #{name},
 		nickName = #{nickName},
 		email = #{email}
 	</insert>
+
+	<select id="getLastInsertId" parameterType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+
+	<select id="getMemberByloginId" parameterType="String"
+		resultType="com.example.demo.vo.Member">
+		SELECT * FROM `member`
+		WHERE loginId = #{loginId}
+	</select>
+
+	<select id="getMemberById" parameterType="int"
+		resultType="com.example.demo.vo.Member">
+		SELECT * FROM `member`
+		WHERE id = #{id}
+	</select>
 
 </mapper>
