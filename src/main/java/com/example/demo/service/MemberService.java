@@ -18,8 +18,18 @@ public class MemberService {
 			return -1;
 		}
 		
+		member = getMemberByNameAndEmail(name, email);
+		
+		if (member != null) {
+			return -2;
+		}
+		
 		memberRepository.doJoin(loginId, loginPw, name, nickName, email);
 		return memberRepository.getLastInsertId();
+	}
+
+	private Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
 
 	public Member getMemberByloginId(String loginId) {
