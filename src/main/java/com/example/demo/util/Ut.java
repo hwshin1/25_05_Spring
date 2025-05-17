@@ -5,7 +5,7 @@ public class Ut {
 		return str == null || str.trim().length() == 0;
 	}
 	
-	public static Object f(String str, Object... args) {
+	public static String f(String str, Object... args) {
 		return String.format(str, args);
 	}
 }
