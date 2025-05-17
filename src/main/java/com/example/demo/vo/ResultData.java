@@ -2,15 +2,15 @@ package com.example.demo.vo;
 
 import lombok.Getter;
 
-public class ResultData {
+public class ResultData<DT> {
 	@Getter
 	private String ResultCode;
 	@Getter
 	private String msg;
 	@Getter
-	private Object data1;
+	private DT data1;
 	
-	public static ResultData from(String ResultCode, String msg, Object data1) {
+	public static <DT>ResultData<DT> from(String ResultCode, String msg, DT data1) {
 		ResultData rd = new ResultData();
 		
 		rd.ResultCode = ResultCode;
@@ -20,7 +20,7 @@ public class ResultData {
 		return rd;
 	}
 	
-	public static ResultData from(String ResultCode, String msg) {
+	public static <DT>ResultData<DT> from(String ResultCode, String msg) {
 		return from(ResultCode, msg, null);
 	}
 	
@@ -32,7 +32,7 @@ public class ResultData {
 		return isSuccess() == false;
 	}
 
-	public static ResultData newData(ResultData rd, Object newData) {
+	public static <DT>ResultData<DT> newData(ResultData rd, DT newData) {
 		return from(rd.getResultCode(), rd.getMsg(), newData);
 	}
 }
