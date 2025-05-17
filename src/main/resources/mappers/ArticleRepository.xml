@@ -41,4 +41,8 @@
 		ORDER BY id DESC
 	</select>
 
+	<select id="getLastInsertId" parameterType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
+
 </mapper>

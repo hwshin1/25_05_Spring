@@ -76,3 +76,5 @@ email = 'hong@gmail.com';
 
 SELECT * FROM `member`
 ORDER BY id DESC;
+
+SELECT LAST_INSERT_ID();
