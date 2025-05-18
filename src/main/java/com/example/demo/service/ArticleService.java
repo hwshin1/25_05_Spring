@@ -42,4 +42,12 @@ public class ArticleService {
 	public List<Article> getArticles() {
 		return articleRepository.getArticles();
 	}
+
+	public ResultData loginedMemberCanModify(int loginedMemberId, Article article) {
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글에 대한 권한 없음", article.getId()));
+		}
+		
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정함", article.getId()));
+	}
 }

@@ -87,9 +87,11 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 		
+		ResultData loginedMemberCanModifyRd = articleService.loginedMemberCanModify(loginedMemberId, article);
+		
 		articleService.modifyArticle(id, title, body);
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글이 수정되었습니다.", id), article);
+		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), article);
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
@@ -107,6 +109,10 @@ public class UsrArticleController {
 		
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
+		}
+		
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-A", "권한없음");
 		}
 		
 		articleService.deleteArticle(id);
