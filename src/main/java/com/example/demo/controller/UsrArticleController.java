@@ -48,14 +48,14 @@ public class UsrArticleController {
 		
 		Article article = articleService.getArticleById(id);
 		
-		return ResultData.newData(writeArticleRd, article);
+		return ResultData.newData(writeArticleRd, "새로 작성된 게시글", article);
 	}
 	
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public ResultData getArticles() {
 		List<Article> articles = articleService.getArticles();
-		return ResultData.from("S-1", Ut.f("Article List"), articles);
+		return ResultData.from("S-1", Ut.f("Article List"), "전체 게시글 리스트", articles);
 	}
 	
 	@RequestMapping("/usr/article/getArticle")
@@ -67,7 +67,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다.", id), article);
+		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다.", id), "상세 게시글 보기", article);
 	}
 	
 	@RequestMapping("/usr/article/doModify")
@@ -91,7 +91,7 @@ public class UsrArticleController {
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), article);
+		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(), "수정된 글", article);
 	}
 	
 	@RequestMapping("/usr/article/doDelete")

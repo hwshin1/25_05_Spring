@@ -24,7 +24,7 @@ public class ArticleService {
 		
 		int id = articleRepository.getLastInsertId();
 		
-		return ResultData.from("S-1", Ut.f("%d번 게시글이 작성되었습니다.", id), id);
+		return ResultData.from("S-1", Ut.f("%d번 게시글이 작성되었습니다.", id), "등록된 게시글 번호", id);
 	}
 
 	public void modifyArticle(int id, String title, String body) {

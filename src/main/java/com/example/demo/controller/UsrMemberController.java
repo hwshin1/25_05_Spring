@@ -55,7 +55,7 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberById((int) doJoinRd.getData1());
 		
-		return ResultData.newData(doJoinRd, member);
+		return ResultData.newData(doJoinRd, "등록된 회원", member);
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
@@ -92,7 +92,7 @@ public class UsrMemberController {
 		
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.from("S-1", Ut.f("%s님 환영합니다!", member.getNickName()), member);
+		return ResultData.from("S-1", Ut.f("%s님 환영합니다!", member.getNickName()), "로그인 한 회원", member);
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
