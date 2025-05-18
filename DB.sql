@@ -78,3 +78,16 @@ SELECT * FROM `member`
 ORDER BY id DESC;
 
 SELECT LAST_INSERT_ID();
+
+ALTER TABLE article ADD COLUMN memberId INT UNSIGNED NOT NULL AFTER updateDate;
+
+UPDATE article
+SET memberId = 2
+WHERE id IN (1,2);
+
+UPDATE article
+SET memberId = 3
+WHERE id = 3;
+
+SELECT * FROM article
+ORDER BY id DESC;

@@ -12,6 +12,8 @@ import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrArticleController {
 	@Autowired
@@ -19,7 +21,19 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doWrite(String title, String body) {
+	public ResultData doWrite(HttpSession session, String title, String body) {
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+		
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+		
+		if (isLogined == false) {
+			return ResultData.from("F-A", Ut.f("로그인 하고 사용하세요."));
+		}
+		
 		if (Ut.isEmptyOrNull(title)) {
 			return ResultData.from("F-1", Ut.f("제목을 입력하세요."));
 		}
@@ -28,13 +42,13 @@ public class UsrArticleController {
 			return ResultData.from("F-2", Ut.f("내용을 입력하세요."));
 		}
 		
-		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
 		
 		int id = (int) writeArticleRd.getData1();
 		
 		Article article = articleService.getArticleById(id);
 		
-		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
+		return ResultData.newData(writeArticleRd, article);
 	}
 	
 	@RequestMapping("/usr/article/getArticles")
@@ -58,7 +72,15 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body) {
+	public ResultData doModify(HttpSession session, int id, String title, String body) {
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+		
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
@@ -72,7 +94,15 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData doDelete(int id) {
+	public ResultData doDelete(HttpSession session, int id) {
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+		
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		}
+		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
