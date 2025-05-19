@@ -91,3 +91,9 @@ WHERE id = 3;
 
 SELECT * FROM article
 ORDER BY id DESC;
+
+SELECT A.*, M.nickName AS extra__write 
+FROM article AS A
+INNER JOIN `member` AS M
+ON A.memberId = M.id
+WHERE A.id = 1;
