@@ -18,6 +18,7 @@ public class Article {
 	private String body;
 	
 	private String extra__write;
+	private boolean userCanModify;
 
 	public Article(String title, String body) {
 		this.title = title;
