@@ -12,8 +12,9 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
@@ -22,16 +23,10 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doWrite(HttpSession session, String title, String body) {
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+	public ResultData doWrite(HttpServletRequest req, String title, String body) {
+		Rq rq = new Rq(req);
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", Ut.f("로그인 하고 사용하세요."));
 		}
 		
@@ -43,7 +38,7 @@ public class UsrArticleController {
 			return ResultData.from("F-2", Ut.f("내용을 입력하세요."));
 		}
 		
-		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
+		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		
 		int id = (int) writeArticleRd.getData1();
 		
@@ -62,16 +57,10 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpSession session, Model model, int id) {
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+	public String showDetail(HttpServletRequest req, Model model, int id) {
+		Rq rq = new Rq(req);
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		
-		Article article = articleService.getForPrintArticle(loginedMemberId, id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		model.addAttribute("article", article);
 		
@@ -80,16 +69,10 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(HttpSession session, int id, String title, String body) {
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+	public ResultData doModify(HttpServletRequest req, int id, String title, String body) {
+		Rq rq = new Rq(req);
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", Ut.f("로그인이 필요한 서비스 입니다."));
 		}
 		
@@ -99,7 +82,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 		
-		ResultData userCanModifyRd = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModifyRd = articleService.userCanModify(rq.getLoginedMemberId(), article);
 		
 		articleService.modifyArticle(id, title, body);
 		
@@ -108,16 +91,10 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpSession session, int id) {
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+	public String doDelete(HttpServletRequest req, int id) {
+		Rq rq = new Rq(req);
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-		}
-		
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return Ut.jsReplace("F-A", "로그인이 필요한 서비스 입니다.", "../member/login");
 		}
 		
@@ -127,7 +104,7 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 		
-		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
+		ResultData userCanDeleteRd = articleService.userCanDelete(rq.getLoginedMemberId(), article);
 		
 		if (userCanDeleteRd.isFail()) {
 			return Ut.jsHistoryBack(userCanDeleteRd.getResultCode(), userCanDeleteRd.getMsg());
