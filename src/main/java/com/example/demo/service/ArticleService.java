@@ -66,4 +66,12 @@ public class ArticleService {
 		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
 		article.setUserCanModify(userCanModifyRd.isSuccess());
 	}
+
+	public ResultData userCanDelete(int loginedMemberId, Article article) {
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-A", Ut.f("%d번 게시글에 대한 삭제 권한 없음", article.getId()));
+		}
+
+		return ResultData.from("S-1", Ut.f("%d번 게시글 삭제 가능", article.getId()));
+	}
 }
