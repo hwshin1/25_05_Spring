@@ -6,15 +6,23 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.demo.interceptor.BeforeArticleInterceptor;
+import com.example.demo.interceptor.NeedLoginInterceptor;
 
 @Configuration
 public class MyMvcConfigurer implements WebMvcConfigurer {
 	@Autowired
 	BeforeArticleInterceptor beforeArticleInterceptor;
+	
+	@Autowired
+	NeedLoginInterceptor needLoginInterceptor;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 모든 요청이 들어오기 전에 before 인터셉터를 활용하겠다.
 		registry.addInterceptor(beforeArticleInterceptor).addPathPatterns("/**");
+		
+		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/write").addPathPatterns("/usr/article/doWrite")
+		.addPathPatterns("/usr/article/modify").addPathPatterns("/usr/article/doModify").addPathPatterns("/usr/article/doDelete")
+		.addPathPatterns("/usr/member/doLogout");
 	}
 }
