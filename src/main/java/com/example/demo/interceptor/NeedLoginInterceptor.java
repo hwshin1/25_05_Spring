@@ -15,7 +15,9 @@ public class NeedLoginInterceptor implements HandlerInterceptor{
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (!rq.isLogined()) {
+			// 콘솔 출력문
 			System.err.println("로그인 하고 사용해야 합니다.");
+			// 화면에 나타나는 문구
 			rq.printHistoryBack("로그인 하고 사용해야 합니다.(NeedLoginInterceptor");
 			
 			return false;
