@@ -22,6 +22,11 @@ public class UsrMemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping("/usr/member/join")
+	public String showJoin(HttpServletRequest req) {
+		return "/usr/member/join";
+	}
+	
 	@RequestMapping("/usr/member/login")
 	public String showLogin(HttpServletRequest req) {
 		return "/usr/member/login";
@@ -29,7 +34,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(HttpSession session, String loginId, String loginPw, String name, String nickName, String email) {
+	public String doJoin(HttpSession session, String loginId, String loginPw, String name, String nickName, String email) {
 		boolean isLogined = false;
 		
 		if (session.getAttribute("loginedMemberId") != null) {
@@ -37,35 +42,39 @@ public class UsrMemberController {
 		}
 		
 		if (isLogined) {
-			return ResultData.from("F-A", Ut.f("이미 로그인 하였습니다."));
+			return Ut.jsHistoryBack("F-A", Ut.f("이미 로그인 하였습니다."));
 		}
 		
 		// 입력하는 값이 비어 있을때 예외처리
 		if (Ut.isEmptyOrNull(loginId)) {
-			return ResultData.from("F-1", Ut.f("아이디를 입력해주세요."));
+			return Ut.jsHistoryBack("F-1", Ut.f("아이디를 입력해주세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(loginPw)) {
-			return ResultData.from("F-2", Ut.f("비밀번호를 입력해주세요."));
+			return Ut.jsHistoryBack("F-2", Ut.f("비밀번호를 입력해주세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(name)) {
-			return ResultData.from("F-3", Ut.f("이름을 입력해주세요."));
+			return Ut.jsHistoryBack("F-3", Ut.f("이름을 입력해주세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(nickName)) {
-			return ResultData.from("F-4", Ut.f("닉네임을 입력해주세요."));
+			return Ut.jsHistoryBack("F-4", Ut.f("닉네임을 입력해주세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(email)) {
-			return ResultData.from("F-5", Ut.f("이메일을 입력해주세요."));
+			return Ut.jsHistoryBack("F-5", Ut.f("이메일을 입력해주세요."));
 		}
 		
 		ResultData doJoinRd = memberService.doJoin(loginId, loginPw, name, nickName, email);
 		
+		if (doJoinRd.isFail()) {
+			return Ut.jsHistoryBack(doJoinRd.getResultCode(), doJoinRd.getMsg());
+		}
+		
 		Member member = memberService.getMemberById((int) doJoinRd.getData1());
 		
-		return ResultData.newData(doJoinRd, "등록된 회원", member);
+		return Ut.jsReplace(doJoinRd.getResultCode(), doJoinRd.getMsg(), "../member/login");
 	}
 	
 	@RequestMapping("/usr/member/doLogin")

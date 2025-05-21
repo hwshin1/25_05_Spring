@@ -13,7 +13,7 @@ public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
 
-	public ResultData doJoin(String loginId, String loginPw, String name, String nickName, String email) {
+	public ResultData<Integer> doJoin(String loginId, String loginPw, String name, String nickName, String email) {
 		Member member = getMemberByloginId(loginId);
 		
 		if (member != null) {
@@ -30,7 +30,7 @@ public class MemberService {
 		
 		int id = memberRepository.getLastInsertId();
 		
-		return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다.", id));
+		return ResultData.from("S-1", Ut.f("회원가입이 완료되었습니다.", id), "가입 성공 id", id);
 	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
