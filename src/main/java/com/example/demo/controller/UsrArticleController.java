@@ -70,26 +70,41 @@ public class UsrArticleController {
 		return "/usr/article/detail";
 	}
 	
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpServletRequest req, Model model, int id) {
+		rq = (Rq) req.getAttribute("rq");
+		
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+		
+		if (article == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다.", id));
+		}
+		
+		model.addAttribute("article", article);
+		
+		return "/usr/article/modify";
+	}
+	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(HttpServletRequest req, int id, String title, String body) {
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", Ut.f("로그인이 필요한 서비스 입니다."));
+			return Ut.jsHistoryBack("F-A", Ut.f("로그인이 필요한 서비스 입니다."));
 		}
 		
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 		
 		ResultData userCanModifyRd = articleService.userCanModify(rq.getLoginedMemberId(), article);
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return ResultData.from(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(), "수정된 글", article);
+		return Ut.jsReplace(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(), "../article/detail?id=" + id);
 	}
 	
 	@RequestMapping("/usr/article/doDelete")

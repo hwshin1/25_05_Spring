@@ -19,6 +19,7 @@ public class Article {
 	
 	private String extra__write;
 	private boolean userCanModify;
+	private boolean userCanDelete;
 
 	public Article(String title, String body) {
 		this.title = title;
