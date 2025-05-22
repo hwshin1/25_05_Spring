@@ -7,44 +7,50 @@
 <section class="mt-8 text-xl px-4">
 	<div class="mx-auto">
 		<form action="../member/doJoin" method="POST">
-			<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
-						<th>아이디</th>
-						<td style="text-align: center;"><input name="loginId" autocomplete="off" type="text" placeholder="아이디 입력" />
+						<th class="text-center">아이디</th>
+						<td style="text-align: center;">
+							<input class="input input-accent" name="loginId" autocomplete="off" type="text" placeholder="아이디 입력" />
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호</th>
-						<td style="text-align: center;"><input name="loginPw" autocomplete="off" type="text" placeholder="비밀번호 입력" />
+						<th class="text-center">비밀번호</th>
+						<td style="text-align: center;">
+							<input class="input input-accent" name="loginPw" autocomplete="off" type="text" placeholder="비밀번호 입력" />
 						</td>
 					</tr>
 					<tr>
-						<th>이름</th>
-						<td style="text-align: center;"><input name="name" autocomplete="off" type="text" placeholder="이름 입력" />
+						<th class="text-center">이름</th>
+						<td style="text-align: center;">
+							<input class="input input-accent" name="name" autocomplete="off" type="text" placeholder="이름 입력" />
 						</td>
 					</tr>
 					<tr>
-						<th>닉네임</th>
-						<td style="text-align: center;"><input name="nickName" autocomplete="off" type="text" placeholder="닉네임 입력" />
+						<th class="text-center">닉네임</th>
+						<td style="text-align: center;">
+							<input class="input input-accent" name="nickName" autocomplete="off" type="text" placeholder="닉네임 입력" />
 						</td>
 					</tr>
 					<tr>
-						<th>이메일</th>
-						<td style="text-align: center;"><input name="email" autocomplete="off" type="text" placeholder="이메일 입력" />
+						<th class="text-center">이메일</th>
+						<td style="text-align: center;">
+							<input class="input input-accent" name="email" autocomplete="off" type="text" placeholder="이메일 입력" />
 						</td>
 					</tr>
 
 					<tr>
 						<th></th>
-						<td style="text-align: center;"><input value="가입" type="submit" /></td>
+						<td style="text-align: center;">
+							<button class="btn btn-soft" type="submit">가입</button>
+						</td>
 					</tr>
-
 				</tbody>
 			</table>
 		</form>
-		<div class="btns">
-			<button type="button" onclick="history.back();">뒤로가기</button>
+		<div>
+			<button class="btn btn-soft" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

@@ -16,7 +16,9 @@
 
 <!-- 테일윈드 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
-</head>
+
+<!-- daisyUi 데이지UI -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.12.23/full.css" />
 <body>
 	<header>
 		<div class="flex h-20 mx-auto items-center text-3xl">

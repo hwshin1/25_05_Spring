@@ -8,7 +8,7 @@
 	<div class="mx-auto">
 		<form action="../article/doModify" method="POST">
 			<input type="hidden" name="id" value="${article.id}" />
-			<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
 						<th class="text-center">번호</th>
@@ -46,10 +46,10 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="btns">
-				<button type="button" onclick="history.back();">뒤로가기</button>
+			<div>
+				<button class="btn btn-soft" type="button" onclick="history.back();">뒤로가기</button>
 				<c:if test="${article.userCanDelete }">
-					<a href="../article/doDelete?id=${article.id }">삭제</a>
+					<a class="btn btn-soft" href="../article/doDelete?id=${article.id }">삭제</a>
 				</c:if>
 			</div>
 		</form>
