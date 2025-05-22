@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.interceptor.BeforeArticleInterceptor;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -18,11 +21,21 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
+	
+	private final BeforeArticleInterceptor beforeArticleInterceptor;
+	
 	@Autowired
 	private Rq rq;
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private BoardService boardService;
+	
+	public UsrArticleController(BeforeArticleInterceptor beforeArticleInterceptor) {
+		this.beforeArticleInterceptor = beforeArticleInterceptor;
+	}
 	
 	@RequestMapping("/usr/article/write")
 	public String showWrite(HttpServletRequest req) {
@@ -56,10 +69,13 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String getArticles(Model model) {
+	public String getArticles(Model model, int boardId) {
+		Board board = boardService.getBoardById(boardId);
+		
 		List<Article> articles = articleService.getArticles();
 		
 		model.addAttribute("articles", articles);
+		model.addAttribute("board", board);
 		
 		return "/usr/article/list";
 	}
