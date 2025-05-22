@@ -24,21 +24,26 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
+	@RequestMapping("/usr/article/write")
+	public String showWrite(HttpServletRequest req) {
+		return "/usr/article/write";
+	}
+	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, String title, String body) {
 		rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", Ut.f("로그인 하고 사용하세요."));
+			return Ut.jsHistoryBack("F-A", Ut.f("로그인 하고 사용하세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(title)) {
-			return ResultData.from("F-1", Ut.f("제목을 입력하세요."));
+			return Ut.jsHistoryBack("F-1", Ut.f("제목을 입력하세요."));
 		}
 		
 		if (Ut.isEmptyOrNull(body)) {
-			return ResultData.from("F-2", Ut.f("내용을 입력하세요."));
+			return Ut.jsHistoryBack("F-2", Ut.f("내용을 입력하세요."));
 		}
 		
 		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
@@ -47,7 +52,7 @@ public class UsrArticleController {
 		
 		Article article = articleService.getArticleById(id);
 		
-		return ResultData.newData(writeArticleRd, "새로 작성된 게시글", article);
+		return Ut.jsReplace(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), "/usr/article/detail?id=" + id);
 	}
 	
 	@RequestMapping("/usr/article/list")

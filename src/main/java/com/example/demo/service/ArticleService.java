@@ -53,18 +53,21 @@ public class ArticleService {
 	
 	public Article getForPrintArticle(int loginedMemberId, int id) {
 		Article article = articleRepository.getForPrintArticle(id);
-		updateForPrintData(loginedMemberId, article);
+		controlForPrintData(loginedMemberId, article);
 		
 		return article;
 	}
 
-	private void updateForPrintData(int loginedMemberId, Article article) {
+	private void controlForPrintData(int loginedMemberId, Article article) {
 		if (article == null) {
 			return;
 		}
 		
 		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
 		article.setUserCanModify(userCanModifyRd.isSuccess());
+		
+		ResultData userDeleteRd = userCanDelete(loginedMemberId, article);
+		article.setUserCanDelete(userDeleteRd.isSuccess());
 	}
 
 	public ResultData userCanDelete(int loginedMemberId, Article article) {

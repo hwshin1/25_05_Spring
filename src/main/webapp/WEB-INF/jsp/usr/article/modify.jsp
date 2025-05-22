@@ -29,19 +29,19 @@
 					<tr>
 						<th class="text-center">제목</th>
 						<td class="text-center">
-							<input required="required" type="text" name="title" value="${article.title }" autocomplete="off" placeholder="새 제목" />
+							<input class="input input-secondary" required="required" type="text" name="title" value="${article.title }" autocomplete="off" placeholder="새 제목" />
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">내용</th>
 						<td class="text-center">
-							<input required="required" type="text" name="body" value="${article.body }" autocomplete="off" placeholder="새 내용" />
+							<textarea autocomplete="off" required="required" name="body" placeholder="새 내용" class="textarea textarea-secondary">${article.body }</textarea>
 						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td class="text-center">
-							<input type="submit" value="수정" />
+							<input class="btn btn-soft" type="submit" value="수정" />
 						</td>
 					</tr>
 				</tbody>
