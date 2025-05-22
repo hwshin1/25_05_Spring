@@ -19,8 +19,8 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 	
-	public ResultData writeArticle(int loginedMemberId, String title, String body) {
-		articleRepository.writeArticle(loginedMemberId, title, body);
+	public ResultData writeArticle(int loginedMemberId, String title, String body, String boardId) {
+		articleRepository.writeArticle(loginedMemberId, title, body, boardId);
 		
 		int id = articleRepository.getLastInsertId();
 		
@@ -76,5 +76,9 @@ public class ArticleService {
 		}
 
 		return ResultData.from("S-1", Ut.f("%d번 게시글 삭제 가능", article.getId()));
+	}
+
+	public List<Article> getForPrintArticles(int boardId) {
+		return articleRepository.getForPrintArticles(boardId);
 	}
 }

@@ -25,6 +25,10 @@
 					<td class="text-center">${article.extra__write }</td>
 				</tr>
 				<tr>
+					<th style="text-align: center;">게시판</th>
+					<td style="text-align: center;">${article.boardId }</td>
+				</tr>
+				<tr>
 					<th class="text-center">제목</th>
 					<td class="text-center">${article.title }</td>
 				</tr>

@@ -7,7 +7,7 @@ import com.example.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
-	public int writeArticle(int loginedMemberId, String title, String body);
+	public int writeArticle(int loginedMemberId, String title, String body, String boardId);
 	
 	public Article getArticleById(int id);
 	
@@ -20,4 +20,6 @@ public interface ArticleRepository {
 	public int getLastInsertId();
 
 	public Article getForPrintArticle(int id);
+
+	public List<Article> getForPrintArticles(int boardId);
 }
