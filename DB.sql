@@ -161,3 +161,21 @@ WHERE id = 5;
 
 SELECT * FROM article
 ORDER BY id DESC;
+
+# 게시글 데이터 대량 생성
+INSERT INTO article
+( 
+	regDate, updateDate, memberId, boardId, title, `body`
+)
+SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 2, FLOOR(RAND() * 3) + 1, CONCAT('제목__',RAND()), CONCAT('내용__',RAND())
+FROM article;
+
+# 페이징
+SELECT A.*, M.nickName AS extra__write, B.name AS boardName
+FROM article AS A
+INNER JOIN `member` AS M
+ON A.memberId = M.id
+INNER JOIN board AS B
+ON A.boardId = B.id
+WHERE boardId != 0 AND boardId = 2
+ORDER BY A.id DESC;
