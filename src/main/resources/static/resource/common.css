@@ -33,7 +33,7 @@ header>div>ul>li>ul>li {
 header>div>ul>li>ul {
 	background-color: white;
 	display: none;
-	position: absolute;
+	position: relative;
 }
 
 header>div>ul>li:hover>ul {

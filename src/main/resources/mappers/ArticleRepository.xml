@@ -33,21 +33,31 @@
 
 	<select id="getForPrintArticle" parameterType="int"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.nickName AS extra__write
+		SELECT A.*, M.nickName AS extra__write, B.name AS boardName
 		FROM article AS A
 		INNER JOIN `member` AS M
 		ON A.memberId = M.id
+		INNER JOIN board AS B
+		ON A.boardId = B.id
 		WHERE A.id = #{id}
 	</select>
 	
 	<select id="getForPrintArticles"
 		resultType="com.example.demo.vo.Article">
-		SELECT A.*, M.nickName AS extra__write 
-		FROM article AS A
-		INNER JOIN `member` AS M
-		ON A.memberId = M.id
-		WHERE A.boardId = #{boardId}
-		ORDER BY id DESC
+			SELECT A.*, M.nickName AS extra__write, B.name AS boardName
+			FROM article AS A
+			INNER JOIN `member` AS M
+			ON A.memberId = M.id
+			INNER JOIN board AS B
+			ON A.boardId = B.id
+			WHERE 1
+			<if test="boardId != 0">
+				AND boardId = #{boardId}
+			</if>
+			ORDER BY A.id DESC
+			<if test="limitFrom > 0">
+				LIMIT #{limitFrom}, #{limitTake}
+			</if>
 	</select>
 	
 	<select id="getArticleById" parameterType="int"
@@ -68,6 +78,15 @@
 	<select id="getLastInsertId" parameterType="int">
 		SELECT
 		LAST_INSERT_ID()
+	</select>
+	
+	<select id="getArticleCount" parameterType="int">
+		SELECT COUNT(*) as cnt
+		FROM article
+		WHERE 1
+		<if test="boardId != 0">
+			AND boardId = #{boardId}
+		</if>
 	</select>
 
 </mapper>

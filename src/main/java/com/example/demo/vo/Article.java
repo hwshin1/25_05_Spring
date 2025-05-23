@@ -19,6 +19,7 @@ public class Article {
 	private String body;
 	
 	private String extra__write;
+	private String boardName;
 	private boolean userCanModify;
 	private boolean userCanDelete;
 

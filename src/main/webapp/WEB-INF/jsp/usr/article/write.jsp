@@ -12,8 +12,8 @@
 					<tr>
 						<th style="text-align: center;">게시판</th>
 						<td style="text-align: center;">
-							<select name="boardId">
-								<option value="" selected disabled>게시판을 선택해주세요</option>
+							<select class="select select-primary" name="boardId">
+								<option value="" disabled selected>게시판을 선택해주세요</option>
 								<option value="1">공지사항</option>
 								<option value="2">자유게시판</option>
 								<option value="3">QnA</option>
@@ -23,13 +23,13 @@
 					<tr>
 						<th class="text-center">제목</th>
 						<td class="text-center">
-							<input class="input input-secondary" required="required" type="text" name="title" autocomplete="off" placeholder="제목" />
+							<input class="input input-secondary" type="text" name="title" autocomplete="off" placeholder="제목" />
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">내용</th>
 						<td class="text-center">
-							<textarea autocomplete="off" required="required" name="body" placeholder="내용" class="textarea textarea-secondary"></textarea>
+							<textarea autocomplete="off" name="body" placeholder="내용" class="textarea textarea-secondary"></textarea>
 						</td>
 					</tr>
 					<tr>

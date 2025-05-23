@@ -78,7 +78,14 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 게시글 삭제 가능", article.getId()));
 	}
 
-	public List<Article> getForPrintArticles(int boardId) {
-		return articleRepository.getForPrintArticles(boardId);
+	public List<Article> getForPrintArticles(int boardId, int itemsInAPage, int page) {
+		int limitFrom = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		
+		return articleRepository.getForPrintArticles(boardId, limitFrom, limitTake);
+	}
+
+	public int getArticleCount(int boardId) {
+		return articleRepository.getArticleCount(boardId);
 	}
 }

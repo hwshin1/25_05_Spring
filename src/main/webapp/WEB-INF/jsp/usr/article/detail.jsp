@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: center;">게시판</th>
-					<td style="text-align: center;">${article.boardId }</td>
+					<td style="text-align: center;">${article.boardName }</td>
 				</tr>
 				<tr>
 					<th class="text-center">제목</th>
