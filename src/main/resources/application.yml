@@ -9,5 +9,7 @@ spring:
     username: root
     password:
 mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.example.demo.vo
   mapper-locations: classpath:/mappers/**/*.xml
