@@ -179,3 +179,23 @@ INNER JOIN board AS B
 ON A.boardId = B.id
 WHERE boardId != 0 AND boardId = 2
 ORDER BY A.id DESC;
+
+# 검색결과
+SELECT COUNT(*), M.nickName AS extra__write
+FROM article AS A
+INNER JOIN `member` AS M
+ON A.memberId = M.id
+WHERE A.boardId != 0 AND A.boardId = 2
+AND A.title LIKE '%sdf%';
+
+# 조회수 컬럼 추가
+ALTER TABLE article ADD COLUMN hitCount INT NOT NULL AFTER boardId;
+SELECT * FROM article
+ORDER BY id DESC;
+
+SELECT hitCount FROM article
+WHERE id = 2;
+
+UPDATE article 
+SET hitCount = 1
+WHERE id = 2;

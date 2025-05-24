@@ -41,6 +41,7 @@
 					<th style="text-align: center;">제목</th>
 					<th style="text-align: center;">작성자 닉네임</th>
 					<th style="text-align: center;">게시판</th>
+					<th style="text-align: center;">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -51,6 +52,7 @@
 						<td style="text-align: center;"><a class="hover:underline" href="detail?id=${article.id }">${article.title }</a></td>
 						<td style="text-align: center;">${article.extra__write }</td>
 						<td style="text-align: center;">${article.boardName }</td>
+						<td style="text-align: center;">${article.hitCount }</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty articles }">
