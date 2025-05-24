@@ -76,7 +76,9 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/list")
 	public String getArticles(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page) throws IOException {
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) throws IOException {
 		rq = (Rq) req.getAttribute("rq");
 		
 		Board board = boardService.getBoardById(boardId);
@@ -85,7 +87,7 @@ public class UsrArticleController {
 			return rq.historyBackOnView("존재하지 않는 게시판");
 		}
 		
-		int articlesCount = articleService.getArticleCount(boardId);
+		int articlesCount = articleService.getArticleCount(boardId, searchKeywordTypeCode, searchKeyword);
 		
 		int itemsInAPage = 10;
 		
