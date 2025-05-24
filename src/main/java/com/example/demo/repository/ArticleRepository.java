@@ -23,5 +23,5 @@ public interface ArticleRepository {
 
 	public int getArticleCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 
-	public List<Article> getForPrintArticles(int boardId, int limitFrom, int limitTake);
+	public List<Article> getForPrintArticles(int boardId, int limitFrom, int limitTake, String searchKeywordTypeCode, String searchKeyword);
 }
